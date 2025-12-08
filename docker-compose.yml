@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:16
+    container_name: pix-postgres
+    environment:
+      POSTGRES_DB: pixservice
+      POSTGRES_USER: pix
+      POSTGRES_PASSWORD: pix
+    ports:
+      - "5432:5432"
+    volumes:
+      - pix-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pix -d pixservice"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pix-postgres-data:
