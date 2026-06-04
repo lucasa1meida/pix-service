@@ -10,5 +10,8 @@
         <module name="chavePix-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="pix-service-web" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

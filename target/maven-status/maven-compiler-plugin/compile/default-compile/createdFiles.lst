@@ -3,10 +3,8 @@ com\pixservice\comum\configuration\MapperConfig.class
 com\pixservice\PixServiceApplication.class
 com\pixservice\pix\dto\RequisicaoPixWebhookDTO.class
 com\pixservice\comum\excecoes\InternalServerErrorException.class
-com\pixservice\comum\excecoes\ChavePixRepetidaException.class
 com\pixservice\pix\repository\EventoWebhookRepository.class
 com\pixservice\pix\enums\TipoEventoPixWebhook.class
-com\pixservice\pix\service\IRegistroIdempotenciaService.class
 com\pixservice\carteira\dto\MovimentacaoCarteiraDTO.class
 com\pixservice\pix\dto\RequisicaoPixTransferenciaDTO.class
 com\pixservice\pix\enums\StatusTransferenciaPix.class
@@ -27,7 +25,6 @@ com\pixservice\pix\service\IPixService.class
 com\pixservice\comum\excecoes\NotFoundException.class
 com\pixservice\pix\entity\EventoPixWebhook.class
 com\pixservice\pix\dto\RegistroChavePixDTO.class
-com\pixservice\pix\service\RegistroIdempotenciaService.class
 com\pixservice\pix\repository\ChavePixRepository.class
 com\pixservice\pix\entity\TransferenciaPix.class
 com\pixservice\pix\service\TransferenciaPixService.class

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.pixservice.pix.entity.RegistroIdempotenciaTest" time="0.028" tests="8" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.pixservice.pix.controller.PixControllerIntegrationTest" time="0.303" tests="6" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -67,12 +67,19 @@
     <property name="maven.repo.local" value="C:\Users\lucas\.m2\repository"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="deveRetornarExcecaoCasoReferenciaNulaOuVazia(String)[1]" classname="com.pixservice.pix.entity.RegistroIdempotenciaTest" time="0.001"/>
-  <testcase name="deveRetornarExcecaoCasoReferenciaNulaOuVazia(String)[2]" classname="com.pixservice.pix.entity.RegistroIdempotenciaTest" time="0.001"/>
-  <testcase name="deveRetornarExcecaoCasoChaveIdempotenciaNulaOuVazia(String)[1]" classname="com.pixservice.pix.entity.RegistroIdempotenciaTest" time="0.01"/>
-  <testcase name="deveRetornarExcecaoCasoChaveIdempotenciaNulaOuVazia(String)[2]" classname="com.pixservice.pix.entity.RegistroIdempotenciaTest" time="0.0"/>
-  <testcase name="deveCriarRegistroComDataDeCriacaoAtual" classname="com.pixservice.pix.entity.RegistroIdempotenciaTest" time="0.001"/>
-  <testcase name="deveInstanciarRegistroIdempotencia" classname="com.pixservice.pix.entity.RegistroIdempotenciaTest" time="0.001"/>
-  <testcase name="deveRetornarExcecaoCasoPayloadHashNuloOuVazio(String)[1]" classname="com.pixservice.pix.entity.RegistroIdempotenciaTest" time="0.002"/>
-  <testcase name="deveRetornarExcecaoCasoPayloadHashNuloOuVazio(String)[2]" classname="com.pixservice.pix.entity.RegistroIdempotenciaTest" time="0.001"/>
+  <testcase name="deveRetornarBadRequestQuandoCarteiraOrigemNaoExistir" classname="com.pixservice.pix.controller.PixControllerIntegrationTest" time="0.044">
+    <system-out><![CDATA[2026-06-03T21:41:03.549-03:00 ERROR 11788 --- [           main] c.p.c.excecoes.GlobalExceptionHandler    : Erro: Carteira de origem não encontrada: 99999999-9999-9999-9999-999999999999
+]]></system-out>
+  </testcase>
+  <testcase name="deveProcessarWebhookConfirmadoComSucesso" classname="com.pixservice.pix.controller.PixControllerIntegrationTest" time="0.139"/>
+  <testcase name="deveRetornarErroAoRegistrarChavePixQuandoCarteiraNaoExiste" classname="com.pixservice.pix.controller.PixControllerIntegrationTest" time="0.022">
+    <system-out><![CDATA[2026-06-03T21:41:03.712-03:00 ERROR 11788 --- [           main] c.p.c.excecoes.GlobalExceptionHandler    : Erro Interno: Erro: Carteira não encontrada.
+]]></system-out>
+  </testcase>
+  <testcase name="deveRetornarBadRequestQuandoTransferenciaNaoForEncontradaNoWebhook" classname="com.pixservice.pix.controller.PixControllerIntegrationTest" time="0.025">
+    <system-out><![CDATA[2026-06-03T21:41:03.736-03:00 ERROR 11788 --- [           main] c.p.c.excecoes.GlobalExceptionHandler    : Erro: Transferência Pix não encontrada para a referência E00000000000000000000000000000000
+]]></system-out>
+  </testcase>
+  <testcase name="deveTransferirPixComSucesso" classname="com.pixservice.pix.controller.PixControllerIntegrationTest" time="0.027"/>
+  <testcase name="deveRegistrarChavePixComSucesso" classname="com.pixservice.pix.controller.PixControllerIntegrationTest" time="0.028"/>
 </testsuite>

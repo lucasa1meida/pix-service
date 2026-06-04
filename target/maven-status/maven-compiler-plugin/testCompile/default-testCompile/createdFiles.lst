@@ -1,10 +1,15 @@
 com\pixservice\historico_transacao\entity\HistoricoTransacaoTest.class
 com\pixservice\pix\entity\ChavePixTest.class
 com\pixservice\pix\entity\TransferenciaPixTest.class
+com\pixservice\pix\controller\PixControllerIntegrationTest.class
 com\pixservice\pix\entity\EventoPixWebhookTest.class
 com\pixservice\pix\service\TransferenciaPixServiceTest.class
 com\pixservice\carteira\service\CarteiraServiceTest.class
+com\pixservice\carteira\controller\CarteiraControllerIntegrationTest.class
+com\pixservice\carteira\controller\CarteiraControllerErrorIntegrationTest.class
 com\pixservice\carteira\entity\CarteiraTest.class
 com\pixservice\pix\service\PixServiceTest.class
 com\ExtensoesDeTeste.class
+com\pixservice\comum\excecoes\ExcecaoTest.class
+com\pixservice\pix\controller\PixControllerErrorIntegrationTest.class
 com\pixservice\pix\entity\RegistroIdempotenciaTest.class

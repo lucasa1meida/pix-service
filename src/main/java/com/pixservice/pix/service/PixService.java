@@ -114,11 +114,8 @@ public class PixService implements IPixService {
                 Carteira carteiraDestino = carteiraRepository.findWithLockingById(transferenciaPixAtualizada.getCarteiraIdDestino())
                         .orElseThrow(() -> new ExcecaoDeDominio("Carteira de destino não encontrada: " + transferenciaPixAtualizada.getCarteiraIdDestino()));
 
-                Carteira carteiraOrigemAtualizada = carteiraOrigem.sacar(transferenciaPixAtualizada.getValor());
-                Carteira carteiraDestinoAtualizada = carteiraDestino.depositar(transferenciaPixAtualizada.getValor());
-                carteiraRepository.save(carteiraOrigemAtualizada);
-                carteiraRepository.save(carteiraDestinoAtualizada);
-
+                carteiraOrigem.sacar(transferenciaPixAtualizada.getValor());
+                carteiraDestino.depositar(transferenciaPixAtualizada.getValor());
             } else {
                 transferenciaPixAtualizada = transferenciaPix.rejeitar();
             }

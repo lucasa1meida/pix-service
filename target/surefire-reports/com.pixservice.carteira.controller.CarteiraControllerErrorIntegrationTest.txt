@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.pixservice.carteira.controller.CarteiraControllerErrorIntegrationTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.54 s -- in com.pixservice.carteira.controller.CarteiraControllerErrorIntegrationTest

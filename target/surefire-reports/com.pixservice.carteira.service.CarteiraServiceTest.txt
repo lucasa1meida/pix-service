@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.pixservice.carteira.service.CarteiraServiceTest
 -------------------------------------------------------------------------------
-Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.612 s -- in com.pixservice.carteira.service.CarteiraServiceTest
+Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.339 s -- in com.pixservice.carteira.service.CarteiraServiceTest

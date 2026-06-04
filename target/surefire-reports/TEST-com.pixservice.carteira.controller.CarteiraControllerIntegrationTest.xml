@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.pixservice.pix.entity.RegistroIdempotenciaTest" time="0.028" tests="8" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.pixservice.carteira.controller.CarteiraControllerIntegrationTest" time="2.266" tests="9" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -49,7 +49,7 @@
     <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
     <property name="java.io.tmpdir" value="C:\Users\lucas\AppData\Local\Temp\"/>
     <property name="idea.version" value="2026.1.2"/>
-    <property name="com.zaxxer.hikari.pool_number" value="3"/>
+    <property name="com.zaxxer.hikari.pool_number" value="2"/>
     <property name="java.version" value="17.0.12"/>
     <property name="user.dir" value="C:\Projetos\my\pix-service"/>
     <property name="os.arch" value="amd64"/>
@@ -67,12 +67,36 @@
     <property name="maven.repo.local" value="C:\Users\lucas\.m2\repository"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="deveRetornarExcecaoCasoReferenciaNulaOuVazia(String)[1]" classname="com.pixservice.pix.entity.RegistroIdempotenciaTest" time="0.001"/>
-  <testcase name="deveRetornarExcecaoCasoReferenciaNulaOuVazia(String)[2]" classname="com.pixservice.pix.entity.RegistroIdempotenciaTest" time="0.001"/>
-  <testcase name="deveRetornarExcecaoCasoChaveIdempotenciaNulaOuVazia(String)[1]" classname="com.pixservice.pix.entity.RegistroIdempotenciaTest" time="0.01"/>
-  <testcase name="deveRetornarExcecaoCasoChaveIdempotenciaNulaOuVazia(String)[2]" classname="com.pixservice.pix.entity.RegistroIdempotenciaTest" time="0.0"/>
-  <testcase name="deveCriarRegistroComDataDeCriacaoAtual" classname="com.pixservice.pix.entity.RegistroIdempotenciaTest" time="0.001"/>
-  <testcase name="deveInstanciarRegistroIdempotencia" classname="com.pixservice.pix.entity.RegistroIdempotenciaTest" time="0.001"/>
-  <testcase name="deveRetornarExcecaoCasoPayloadHashNuloOuVazio(String)[1]" classname="com.pixservice.pix.entity.RegistroIdempotenciaTest" time="0.002"/>
-  <testcase name="deveRetornarExcecaoCasoPayloadHashNuloOuVazio(String)[2]" classname="com.pixservice.pix.entity.RegistroIdempotenciaTest" time="0.001"/>
+  <testcase name="deveRetornarBadRequestAoDepositarQuantidadeInvalida" classname="com.pixservice.carteira.controller.CarteiraControllerIntegrationTest" time="0.228">
+    <system-out><![CDATA[
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.3.11)
+
+2026-06-03T21:40:59.990-03:00  WARN 11788 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-03T21:41:01.147-03:00 ERROR 11788 --- [           main] c.p.c.excecoes.GlobalExceptionHandler    : Erro: Erro ao depositar na carteira: Quantidade a depositar deve ser positiva.
+]]></system-out>
+  </testcase>
+  <testcase name="deveCriarCarteiraComSucesso" classname="com.pixservice.carteira.controller.CarteiraControllerIntegrationTest" time="0.087"/>
+  <testcase name="deveObterSaldoHistoricoQuandoDataForInformada" classname="com.pixservice.carteira.controller.CarteiraControllerIntegrationTest" time="0.181"/>
+  <testcase name="deveRetornarNotFoundQuandoHistoricoNaoForEncontrado" classname="com.pixservice.carteira.controller.CarteiraControllerIntegrationTest" time="0.016">
+    <system-out><![CDATA[2026-06-03T21:41:01.439-03:00 ERROR 11788 --- [           main] c.p.c.excecoes.GlobalExceptionHandler    : Dados não encontrados: Dados não encontrados: Transação não encontrada.
+]]></system-out>
+  </testcase>
+  <testcase name="deveObterSaldoAtualQuandoDataForNula" classname="com.pixservice.carteira.controller.CarteiraControllerIntegrationTest" time="0.013"/>
+  <testcase name="deveRetornarBadRequestAoSacarComSaldoInsuficiente" classname="com.pixservice.carteira.controller.CarteiraControllerIntegrationTest" time="0.012">
+    <system-out><![CDATA[2026-06-03T21:41:01.469-03:00 ERROR 11788 --- [           main] c.p.c.excecoes.GlobalExceptionHandler    : Erro: Erro ao sacar na carteira: Fundos insuficientes.
+]]></system-out>
+  </testcase>
+  <testcase name="deveSacarDaCarteira" classname="com.pixservice.carteira.controller.CarteiraControllerIntegrationTest" time="0.044"/>
+  <testcase name="deveRetornarBadRequestAoCriarCarteiraComProprietarioVazio" classname="com.pixservice.carteira.controller.CarteiraControllerIntegrationTest" time="0.012">
+    <system-out><![CDATA[2026-06-03T21:41:01.527-03:00 ERROR 11788 --- [           main] c.p.c.excecoes.GlobalExceptionHandler    : Erro: Erro ao salvar carteira: proprietarioId não pode ser nulo ou vazio
+]]></system-out>
+  </testcase>
+  <testcase name="deveDepositarNaCarteira" classname="com.pixservice.carteira.controller.CarteiraControllerIntegrationTest" time="0.017"/>
 </testsuite>
