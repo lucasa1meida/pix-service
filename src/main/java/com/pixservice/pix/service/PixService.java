@@ -17,6 +17,7 @@ import com.pixservice.pix.enums.TipoEventoPixWebhook;
 import com.pixservice.pix.repository.ChavePixRepository;
 import com.pixservice.pix.repository.EventoWebhookRepository;
 import com.pixservice.pix.repository.TransferenciaPixRepository;
+import com.pixservice.pix.webhook.IProcessaWebhookService;
 import io.micrometer.core.instrument.MeterRegistry;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -41,11 +42,9 @@ public class PixService implements IPixService {
     private final CarteiraRepository carteiraRepository;
     private final ChavePixRepository chavePixRepository;
     private final TransferenciaPixService transferenciaPixService;
-    private final EventoWebhookRepository eventoWebhookRepository;
-    private final TransferenciaPixRepository transferenciaPixRepository;
     private final ModelMapper modelMapper;
     private final MeterRegistry meterRegistry;
-    private final HistoricoTransacaoRepository historicoTransacaoRepository;
+    private final IProcessaWebhookService processaWebhookService;
 
     @Transactional
     @Override
@@ -79,52 +78,7 @@ public class PixService implements IPixService {
     @Transactional
     @Override
     public TransferenciaPixDTO processarWebhook(@Valid RequisicaoPixWebhookDTO request) {
-        String referencia = request.getReferencia();
-        Optional<EventoPixWebhook> eventoExistente = eventoWebhookRepository.findByEventoId(request.getEventoId());
-        if (eventoExistente.isPresent()) {
-            log.info("Evento de Webhook {} já processado, ignorando o reprocessamento.", request.getEventoId());
-            TransferenciaPix transferenciaPix = transferenciaPixRepository.findByReferencia(referencia)
-                    .orElseThrow(() -> new ExcecaoDeDominio("Transferência Pix não encontrada para a referência " + referencia));
-            return modelMapper.map(transferenciaPix, TransferenciaPixDTO.class);
-        }
-
-        EventoPixWebhook eventoNovo = new EventoPixWebhook(request.getEventoId(), referencia,
-                request.getTipoEvento(), request.getDataDeOcorrencia(), LocalDateTime.now());
-        eventoWebhookRepository.save(eventoNovo);
-
-        TransferenciaPix transferenciaPix = transferenciaPixRepository.findByReferencia(referencia)
-                .orElseThrow(() -> new ExcecaoDeDominio("Transferência Pix não encontrada para a referência " + referencia));
-
-        TransferenciaPix transferenciaPixAtualizada;
-
-        try {
-            if (request.getTipoEvento() == TipoEventoPixWebhook.CONFIRMADO) {
-                transferenciaPixAtualizada = transferenciaPix.confirmar();
-
-                HistoricoTransacao debito = HistoricoTransacao.depositar(transferenciaPixAtualizada.getCarteiraIdOrigem(),
-                        transferenciaPixAtualizada.getValor(), TipoTransacao.PIX_OUT, transferenciaPixAtualizada.getReferencia());
-                HistoricoTransacao credito = HistoricoTransacao.depositar(transferenciaPixAtualizada.getCarteiraIdDestino(),
-                        transferenciaPixAtualizada.getValor(), TipoTransacao.PIX_IN, transferenciaPixAtualizada.getReferencia());
-
-                historicoTransacaoRepository.save(debito);
-                historicoTransacaoRepository.save(credito);
-
-                Carteira carteiraOrigem = carteiraRepository.findWithLockingById(transferenciaPixAtualizada.getCarteiraIdOrigem())
-                        .orElseThrow(() -> new ExcecaoDeDominio("Carteira de origem não encontrada: " + transferenciaPixAtualizada.getCarteiraIdOrigem()));
-                Carteira carteiraDestino = carteiraRepository.findWithLockingById(transferenciaPixAtualizada.getCarteiraIdDestino())
-                        .orElseThrow(() -> new ExcecaoDeDominio("Carteira de destino não encontrada: " + transferenciaPixAtualizada.getCarteiraIdDestino()));
-
-                carteiraOrigem.sacar(transferenciaPixAtualizada.getValor());
-                carteiraDestino.depositar(transferenciaPixAtualizada.getValor());
-            } else {
-                transferenciaPixAtualizada = transferenciaPix.rejeitar();
-            }
-        } catch (ExcecaoDeDominio e) {
-            return modelMapper.map(transferenciaPix, TransferenciaPixDTO.class);
-        }
-
-        transferenciaPixRepository.save(transferenciaPixAtualizada);
-        return modelMapper.map(transferenciaPixAtualizada, TransferenciaPixDTO.class);
+        return processaWebhookService.processar(request);
     }
 
     private static String obterPayloadHashPor(UUID carteiraIdOrigem, String chavePixDestino, BigDecimal valorTransferencia) {

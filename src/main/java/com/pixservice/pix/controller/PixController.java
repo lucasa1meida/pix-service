@@ -7,7 +7,7 @@ import com.pixservice.pix.dto.RegistroChavePixDTO;
 import com.pixservice.pix.dto.RequisicaoPixTransferenciaDTO;
 import com.pixservice.pix.dto.RequisicaoPixWebhookDTO;
 import com.pixservice.pix.dto.TransferenciaPixDTO;
-import com.pixservice.pix.service.PixService;
+import com.pixservice.pix.service.IPixService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,7 +24,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class PixController {
 
-    private final PixService pixService;
+    private final IPixService pixService;
 
     @PostMapping("/carteiras/{carteiraId}/chaves-pix")
     @ResponseStatus(HttpStatus.CREATED)
