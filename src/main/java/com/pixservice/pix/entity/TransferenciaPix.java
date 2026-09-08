@@ -2,6 +2,10 @@ package com.pixservice.pix.entity;
 
 import com.pixservice.comum.excecoes.ExcecaoDeDominio;
 import com.pixservice.pix.enums.StatusTransferenciaPix;
+import com.pixservice.pix.state.ConfirmadoState;
+import com.pixservice.pix.state.PendenteState;
+import com.pixservice.pix.state.RejeitadoState;
+import com.pixservice.pix.state.TransferenciaPixState;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -100,24 +104,23 @@ public class TransferenciaPix {
     }
 
     public TransferenciaPix confirmar() {
-        if (this.status != StatusTransferenciaPix.PENDENTE) {
-            if (this.status == StatusTransferenciaPix.CONFIRMADO) {
-                return this;
-            }
-            throw new ExcecaoDeDominio("Não é possível confirmar a transferência de Pix do estado " + status);
-        }
-        return new TransferenciaPix(id, referencia, carteiraIdOrigem, carteiraIdDestino, chavePix, valor, dataDeCriacao,
-                StatusTransferenciaPix.CONFIRMADO);
+        return resolverEstado().confirmar(this);
     }
 
     public TransferenciaPix rejeitar() {
-        if (this.status != StatusTransferenciaPix.PENDENTE) {
-            if (this.status == StatusTransferenciaPix.REJEITADO) {
-                return this;
-            }
-            throw new ExcecaoDeDominio("Não é possível confirmar a transferência de Pix do estado " + status);
-        }
+        return resolverEstado().rejeitar(this);
+    }
+
+    public TransferenciaPix comStatus(StatusTransferenciaPix novoStatus) {
         return new TransferenciaPix(id, referencia, carteiraIdOrigem, carteiraIdDestino, chavePix, valor, dataDeCriacao,
-                StatusTransferenciaPix.REJEITADO);
+                novoStatus);
+    }
+
+    private TransferenciaPixState resolverEstado() {
+        return switch (status) {
+            case PENDENTE -> new PendenteState();
+            case CONFIRMADO -> new ConfirmadoState();
+            case REJEITADO -> new RejeitadoState();
+        };
     }
 }
