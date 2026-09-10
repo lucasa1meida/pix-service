@@ -10,7 +10,7 @@ Microserviço de carteira com suporte a Pix, com foco em consistência sob conco
 - **Framework**: Spring Boot 3.3.x  
 - **Persistência**:
   - **Produção**: PostgreSQL (`org.postgresql:postgresql`)
-  - **Testes**: H2 em memória
+  - **Testes**: Usando testContainers
 - **Outras libs**:
   - **Spring Data JPA**
   - **Bean Validation** (Jakarta Validation)
