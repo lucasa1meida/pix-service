@@ -155,7 +155,7 @@ class TransferenciaPixTest {
         TransferenciaPix transferenciaRejeitada = transferencia.rejeitar();
 
         assertThrows(ExcecaoDeDominio.class, transferenciaRejeitada::confirmar)
-                .comMensagemDeErro("Não é possível confirmar a transferência de Pix que tenha estado REJEITADO");
+                .comMensagemDeErro("Não é possível confirmar a transferência de Pix do estado REJEITADO");
     }
 
     @Test

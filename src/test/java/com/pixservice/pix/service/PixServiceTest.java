@@ -227,7 +227,6 @@ class PixServiceTest {
         when(transferenciaPixRepository.save(any(TransferenciaPix.class))).thenAnswer(invocation -> invocation.getArgument(0));
         when(carteiraRepository.findWithLockingById(transferenciaPix.getCarteiraIdOrigem())).thenReturn(Optional.of(carteiraOrigem));
         when(carteiraRepository.findWithLockingById(transferenciaPix.getCarteiraIdDestino())).thenReturn(Optional.of(carteiraDestino));
-        when(carteiraRepository.save(any(Carteira.class))).thenAnswer(invocation -> invocation.getArgument(0));
         when(historicoTransacaoRepository.save(any(HistoricoTransacao.class))).thenAnswer(invocation -> invocation.getArgument(0));
         when(modelMapper.map(any(TransferenciaPix.class), eq(TransferenciaPixDTO.class))).thenReturn(transferenciaPixDTO);
 
@@ -249,8 +248,9 @@ class PixServiceTest {
         verify(historicoTransacaoRepository, times(2)).save(any(HistoricoTransacao.class));
         verify(carteiraRepository).findWithLockingById(transferenciaPix.getCarteiraIdOrigem());
         verify(carteiraRepository).findWithLockingById(transferenciaPix.getCarteiraIdDestino());
-        ArgumentCaptor<Carteira> carteiraCaptor = ArgumentCaptor.forClass(Carteira.class);
-        verify(carteiraRepository, times(2)).save(carteiraCaptor.capture());
+        assertEquals(new BigDecimal("100.00"), carteiraOrigem.getSaldo());
+        assertEquals(new BigDecimal("100.00"), carteiraDestino.getSaldo());
+        verify(carteiraRepository, never()).save(any());
     }
 
     @Test
