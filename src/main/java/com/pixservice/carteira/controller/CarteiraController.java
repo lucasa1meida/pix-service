@@ -34,11 +34,11 @@ public class CarteiraController {
     private static final String ERRO_SAQUE_CARTEIRA = "Erro ao sacar na carteira: ";
     private static final String ERRO_BUSCA_CARTEIRA = "Erro ao buscar carteira: ";
 
-    @PostMapping("/{proprietarioId}")
+    @PostMapping("/{customerId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public CarteiraDTO criar(@PathVariable("proprietarioId") String proprietarioId) {
+    public CarteiraDTO criar(@PathVariable("customerId") String customerId) {
         try {
-            return carteiraService.criar(proprietarioId);
+            return carteiraService.criar(customerId);
         } catch (ExcecaoDeDominio ex) {
             throw new ExcecaoDeDominio(ERRO_SALVA_CARTEIRA + ex.getMessage());
         } catch (Exception ex) {

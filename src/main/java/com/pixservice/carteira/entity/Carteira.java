@@ -24,8 +24,8 @@ public class Carteira {
     @Column(nullable = false, updatable = false)
     private UUID id;
 
-    @Column(name = "ordem_id", nullable = false)
-    private String proprietarioId;
+    @Column(name = "customer_id", nullable = false)
+    private String customerId;
 
     @Column(nullable = false)
     private BigDecimal saldo;
@@ -36,10 +36,10 @@ public class Carteira {
     @Column(name = "data_de_atualizacao", nullable = false)
     private LocalDateTime dataDeAtualizacao;
 
-    public Carteira(String proprietarioId) {
-        validarCamposObrigatorios(proprietarioId);
+    public Carteira(String customerId) {
+        validarCamposObrigatorios(customerId);
         this.id = UUID.randomUUID();
-        this.proprietarioId = proprietarioId;
+        this.customerId = customerId;
         this.saldo = BigDecimal.ZERO;
 
         var dataDeCriacaoAtualizacao = LocalDateTime.now();
@@ -47,8 +47,8 @@ public class Carteira {
         this.dataDeAtualizacao = dataDeCriacaoAtualizacao;
     }
 
-    private static void validarCamposObrigatorios(String proprietarioId) {
-        ExcecaoDeDominio.quandoStringForVazia(proprietarioId, "proprietarioId não pode ser nulo ou vazio");
+    private static void validarCamposObrigatorios(String customerId) {
+        ExcecaoDeDominio.quandoStringForVazia(customerId, "customerId não pode ser nulo ou vazio");
     }
 
     public Carteira depositar(BigDecimal quantidade) {

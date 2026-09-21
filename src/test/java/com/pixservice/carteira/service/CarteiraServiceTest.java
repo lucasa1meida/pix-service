@@ -42,7 +42,7 @@ class CarteiraServiceTest {
     private CarteiraService carteiraService;
 
     private UUID carteiraId;
-    private String proprietarioId;
+    private String customerId;
     private Carteira carteira;
     private BigDecimal valorDeposito;
     private BigDecimal valorSaque;
@@ -51,10 +51,10 @@ class CarteiraServiceTest {
     @DisplayName("Deve inicializar dados comuns para CarteiraServiceTest")
     void setUp() {
         carteiraId = UUID.randomUUID();
-        proprietarioId = "user-123";
+        customerId = "user-123";
         valorDeposito = new BigDecimal("100.00");
         valorSaque = new BigDecimal("50.00");
-        carteira = new Carteira(proprietarioId);
+        carteira = new Carteira(customerId);
     }
 
     @Test
@@ -62,10 +62,10 @@ class CarteiraServiceTest {
     void deveCriarCarteiraComSucesso() {
         when(carteiraRepository.save(any(Carteira.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-        CarteiraDTO resultado = carteiraService.criar(proprietarioId);
+        CarteiraDTO resultado = carteiraService.criar(customerId);
 
         assertNotNull(resultado);
-        assertEquals(proprietarioId, resultado.getPropietarioId());
+        assertEquals(customerId, resultado.getCustomerId());
         assertEquals(BigDecimal.ZERO, resultado.getSaldo());
         assertNotNull(resultado.getCarteiraId());
         assertNotNull(resultado.getDataDeCriacao());
@@ -73,7 +73,7 @@ class CarteiraServiceTest {
 
         ArgumentCaptor<Carteira> carteiraCaptor = ArgumentCaptor.forClass(Carteira.class);
         verify(carteiraRepository).save(carteiraCaptor.capture());
-        assertEquals(proprietarioId, carteiraCaptor.getValue().getProprietarioId());
+        assertEquals(customerId, carteiraCaptor.getValue().getCustomerId());
     }
 
     @Test
@@ -128,7 +128,7 @@ class CarteiraServiceTest {
 
         assertNotNull(resultado);
         assertEquals(valorDeposito, resultado.getSaldo());
-        assertEquals(proprietarioId, resultado.getPropietarioId());
+        assertEquals(customerId, resultado.getCustomerId());
 
         ArgumentCaptor<Carteira> carteiraCaptor = ArgumentCaptor.forClass(Carteira.class);
         verify(carteiraRepository).save(carteiraCaptor.capture());
@@ -152,7 +152,7 @@ class CarteiraServiceTest {
 
         assertNotNull(resultado);
         assertEquals(new BigDecimal("50.00"), resultado.getSaldo());
-        assertEquals(proprietarioId, resultado.getPropietarioId());
+        assertEquals(customerId, resultado.getCustomerId());
 
         ArgumentCaptor<Carteira> carteiraCaptor = ArgumentCaptor.forClass(Carteira.class);
         verify(carteiraRepository).save(carteiraCaptor.capture());
@@ -194,14 +194,14 @@ class CarteiraServiceTest {
         carteira.depositar(valorDeposito);
         when(carteiraRepository.save(any(Carteira.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-        CarteiraDTO resultado = carteiraService.criar(proprietarioId);
+        CarteiraDTO resultado = carteiraService.criar(customerId);
 
         ArgumentCaptor<Carteira> carteiraCaptor = ArgumentCaptor.forClass(Carteira.class);
         verify(carteiraRepository).save(carteiraCaptor.capture());
         Carteira carteiraSalva = carteiraCaptor.getValue();
 
         assertEquals(carteiraSalva.getId(), resultado.getCarteiraId());
-        assertEquals(carteiraSalva.getProprietarioId(), resultado.getPropietarioId());
+        assertEquals(carteiraSalva.getCustomerId(), resultado.getCustomerId());
         assertEquals(carteiraSalva.getSaldo(), resultado.getSaldo());
         assertEquals(carteiraSalva.getDataDeCriacao(), resultado.getDataDeCriacao());
         assertEquals(carteiraSalva.getDataDeAtualizacao(), resultado.getDataDeAtualizacao());

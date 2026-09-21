@@ -25,8 +25,8 @@ public class CarteiraService implements ICarteiraService {
     private final HistoricoTransacaoRepository historicoTransacaoRepository;
 
     @Override
-    public CarteiraDTO criar(String proprietarioId) {
-        Carteira carteira = new Carteira(proprietarioId);
+    public CarteiraDTO criar(String customerId) {
+        Carteira carteira = new Carteira(customerId);
         carteiraRepository.save(carteira);
         log.info("Carteira Salvo com sucesso.");
         return mapearRespostaPor(carteira);
@@ -78,7 +78,7 @@ public class CarteiraService implements ICarteiraService {
     private static CarteiraDTO mapearRespostaPor(Carteira carteira) {
         CarteiraDTO carteiraDTO = new CarteiraDTO();
         carteiraDTO.setCarteiraId(carteira.getId());
-        carteiraDTO.setPropietarioId(carteira.getProprietarioId());
+        carteiraDTO.setCustomerId(carteira.getCustomerId());
         carteiraDTO.setSaldo(carteira.getSaldo());
         carteiraDTO.setDataDeCriacao(carteira.getDataDeCriacao());
         carteiraDTO.setDataDeAtualizacao(carteira.getDataDeAtualizacao());

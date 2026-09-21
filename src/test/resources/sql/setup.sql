@@ -3,7 +3,7 @@ CREATE SCHEMA IF NOT EXISTS public;
 -- Tabela de carteiras
 CREATE TABLE IF NOT EXISTS public.carteira (
     id UUID PRIMARY KEY,
-    ordem_id VARCHAR(255) NOT NULL,
+    customer_id VARCHAR(255) NOT NULL,
     saldo NUMERIC(19, 2) NOT NULL,
     data_de_criacao TIMESTAMP NOT NULL,
     data_de_atualizacao TIMESTAMP NOT NULL

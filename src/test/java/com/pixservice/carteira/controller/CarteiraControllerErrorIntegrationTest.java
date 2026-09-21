@@ -43,7 +43,7 @@ class CarteiraControllerErrorIntegrationTest {
         when(carteiraService.criar(anyString()))
                 .thenThrow(new RuntimeException("Falha inesperada"));
 
-        mockMvc.perform(post("/carteiras/{proprietarioId}", "proprietario-erro"))
+        mockMvc.perform(post("/carteiras/{customerId}", "customer-erro"))
                 .andExpect(status().isInternalServerError())
                 .andExpect(jsonPath("$.message",
                         is("Erro ao salvar carteira: Falha inesperada")));

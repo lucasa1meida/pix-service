@@ -17,21 +17,21 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class CarteiraTest {
 
     @Test
-    @DisplayName("Deve instanciar carteira com saldo zero e proprietario informado")
+    @DisplayName("Deve instanciar carteira com saldo zero e customer informado")
     void deveInstanciarCarteira() {
-        String proprietarioId = "user-123";
-        Carteira carteira = new Carteira(proprietarioId);
+        String customerId = "user-123";
+        Carteira carteira = new Carteira(customerId);
 
-        assertEquals(proprietarioId, carteira.getProprietarioId());
+        assertEquals(customerId, carteira.getCustomerId());
         assertEquals(BigDecimal.ZERO, carteira.getSaldo());
     }
 
     @NullAndEmptySource
     @ParameterizedTest
-    @DisplayName("Deve lançar ExcecaoDeDominio quando proprietarioId for nulo ou vazio")
-    void deveRetornarExcecaoCasoProprietarioIdNuloOuVazio(String proprietarioId) {
-        assertThrows(ExcecaoDeDominio.class, () -> new Carteira(proprietarioId))
-                .comMensagemDeErro("proprietarioId não pode ser nulo ou vazio");
+    @DisplayName("Deve lançar ExcecaoDeDominio quando customerId for nulo ou vazio")
+    void deveRetornarExcecaoCasocustomerIdNuloOuVazio(String customerId) {
+        assertThrows(ExcecaoDeDominio.class, () -> new Carteira(customerId))
+                .comMensagemDeErro("customerId não pode ser nulo ou vazio");
     }
 
     @Test

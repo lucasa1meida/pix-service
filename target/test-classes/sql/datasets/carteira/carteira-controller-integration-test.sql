@@ -3,10 +3,10 @@ DELETE FROM public.historico_transacao;
 DELETE FROM public.carteira;
 
 -- Carteira base para operações de depósito/saque/saldo
-INSERT INTO public.carteira (id, ordem_id, saldo, data_de_criacao, data_de_atualizacao)
+INSERT INTO public.carteira (id, customer_id, saldo, data_de_criacao, data_de_atualizacao)
 VALUES (
     '11111111-1111-1111-1111-111111111111',
-    'proprietario-teste',
+    'customer-teste',
     100.00,
     CURRENT_TIMESTAMP,
     CURRENT_TIMESTAMP

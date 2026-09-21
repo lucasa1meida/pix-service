@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @Entity
 @Table(schema = "public", name = "evento_pix_webhook", uniqueConstraints = {
-        @UniqueConstraint(name = "uk_pix_webhook_event_id", columnNames = "event_id")
+        @UniqueConstraint(name = "uk_pix_webhook_evento_id", columnNames = "evento_id")
 })
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

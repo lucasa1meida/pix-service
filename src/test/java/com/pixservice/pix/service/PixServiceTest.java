@@ -121,15 +121,15 @@ class PixServiceTest {
         requisicaoWebhook.setEventoId(eventoId);
         requisicaoWebhook.setDataDeOcorrencia(LocalDateTime.now());
 
-        carteiraOrigem = new Carteira("proprietario-origem");
+        carteiraOrigem = new Carteira("customer-origem");
         carteiraOrigem.depositar(new BigDecimal("200.00"));
-        carteiraDestino = new Carteira("proprietario-destino");
+        carteiraDestino = new Carteira("customer-destino");
     }
 
     @Test
     @DisplayName("Deve registrar uma nova chave Pix com sucesso")
     void deveRegistrarChavePixComSucesso() {
-        when(carteiraRepository.findById(carteiraId)).thenReturn(Optional.of(new Carteira("proprietario")));
+        when(carteiraRepository.findById(carteiraId)).thenReturn(Optional.of(new Carteira("customer")));
         when(chavePixRepository.save(any(ChavePix.class))).thenAnswer(invocation -> invocation.getArgument(0));
         when(modelMapper.map(any(ChavePix.class), eq(ChavePixDTO.class))).thenReturn(chavePixDTO);
 

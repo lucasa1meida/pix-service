@@ -11,7 +11,7 @@ import java.util.UUID;
 @Setter
 public class CarteiraDTO {
     private UUID carteiraId;
-    private String propietarioId;
+    private String customerId;
     private BigDecimal saldo;
     private LocalDateTime dataDeCriacao;
     private LocalDateTime dataDeAtualizacao;

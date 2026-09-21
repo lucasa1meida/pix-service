@@ -92,14 +92,14 @@ OBS: temos um md(COMANDOS_CURL.md) com exemplos de curl para facilitar os testes
 
 - **Criar carteira**
 
-  - **POST** `/carteiras/{proprietarioId}`
-  - **Path param**: `proprietarioId` (string)
+  - **POST** `/carteiras/{customerId}`
+  - **Path param**: `customerId` (string)
   - **Resposta (201)** – `CarteiraDTO`:
 
     ```json
     {
       "carteiraId": "uuid",
-      "propietarioId": "user-123",
+      "customerId": "user-123",
       "saldo": 0.00,
       "dataDeCriacao": "2025-01-01T10:00:00",
       "dataDeAtualizacao": "2025-01-01T10:00:00"

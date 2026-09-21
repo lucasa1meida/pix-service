@@ -41,26 +41,26 @@ class CarteiraControllerIntegrationTest {
     @Test
     @DisplayName("Deve criar carteira com sucesso")
     void deveCriarCarteiraComSucesso() throws Exception {
-        String proprietarioId = "novo-proprietario";
+        String customerId = "novo-customer";
 
-        mockMvc.perform(post("/carteiras/{proprietarioId}", proprietarioId))
+        mockMvc.perform(post("/carteiras/{customerId}", customerId))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.carteiraId", notNullValue()))
-                .andExpect(jsonPath("$.propietarioId", is(proprietarioId)))
+                .andExpect(jsonPath("$.customerId", is(customerId)))
                 .andExpect(jsonPath("$.saldo", is(0)))
                 .andExpect(jsonPath("$.dataDeCriacao", notNullValue()))
                 .andExpect(jsonPath("$.dataDeAtualizacao", notNullValue()));
     }
 
     @Test
-    @DisplayName("Deve retornar BAD_REQUEST ao criar carteira com proprietarioId em branco")
-    void deveRetornarBadRequestAoCriarCarteiraComProprietarioVazio() throws Exception {
-        String proprietarioId = "   ";
+    @DisplayName("Deve retornar BAD_REQUEST ao criar carteira com customerId em branco")
+    void deveRetornarBadRequestAoCriarCarteiraComCustomerVazio() throws Exception {
+        String customerId = "   ";
 
-        mockMvc.perform(post("/carteiras/{proprietarioId}", proprietarioId))
+        mockMvc.perform(post("/carteiras/{customerId}", customerId))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message",
-                        is("Erro ao salvar carteira: proprietarioId não pode ser nulo ou vazio")));
+                        is("Erro ao salvar carteira: customerId não pode ser nulo ou vazio")));
     }
 
     @Test
@@ -74,7 +74,7 @@ class CarteiraControllerIntegrationTest {
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.carteiraId", is(CARTEIRA_ID_FIXA.toString())))
-                .andExpect(jsonPath("$.propietarioId", is("proprietario-teste")))
+                .andExpect(jsonPath("$.customerId", is("customer-teste")))
                 .andExpect(jsonPath("$.saldo", is(150.0)))
                 .andExpect(jsonPath("$.dataDeCriacao", notNullValue()))
                 .andExpect(jsonPath("$.dataDeAtualizacao", notNullValue()));
@@ -105,7 +105,7 @@ class CarteiraControllerIntegrationTest {
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.carteiraId", is(CARTEIRA_ID_FIXA.toString())))
-                .andExpect(jsonPath("$.propietarioId", is("proprietario-teste")))
+                .andExpect(jsonPath("$.customerId", is("customer-teste")))
                 .andExpect(jsonPath("$.saldo", is(50.0)))
                 .andExpect(jsonPath("$.dataDeCriacao", notNullValue()))
                 .andExpect(jsonPath("$.dataDeAtualizacao", notNullValue()));

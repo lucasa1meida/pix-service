@@ -78,8 +78,8 @@ class TransferenciaPixServiceTest {
         chavePixDestino = "usuario@example.com";
         valorTransferencia = new BigDecimal("100.00");
         payloadHash = "abc123def456";
-        carteiraOrigem = new Carteira("proprietario-origem");
-        carteiraDestino = new Carteira("proprietario-destino");
+        carteiraOrigem = new Carteira("customer-origem");
+        carteiraDestino = new Carteira("customer-destino");
         chavePix = new ChavePix(carteiraIdDestino, TipoChavePix.EMAIL, chavePixDestino);
     }
 

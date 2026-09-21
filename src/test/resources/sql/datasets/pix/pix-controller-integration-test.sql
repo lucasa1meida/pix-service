@@ -7,18 +7,18 @@ DELETE FROM public.historico_transacao;
 DELETE FROM public.carteira;
 
 -- Carteiras de origem e destino
-INSERT INTO public.carteira (id, ordem_id, saldo, data_de_criacao, data_de_atualizacao)
+INSERT INTO public.carteira (id, customer_id, saldo, data_de_criacao, data_de_atualizacao)
 VALUES
 (
     'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
-    'proprietario-origem',
+    'customer-origem',
     500.00,
     CURRENT_TIMESTAMP,
     CURRENT_TIMESTAMP
 ),
 (
     'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
-    'proprietario-destino',
+    'customer-destino',
     200.00,
     CURRENT_TIMESTAMP,
     CURRENT_TIMESTAMP
